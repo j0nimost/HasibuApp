@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require('./apptesthandler');
+const app = require('../../app');
 const dataHandler = require('./datahandler');
 const storeModel = require('../models/storesModel');
 
