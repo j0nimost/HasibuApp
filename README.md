@@ -1,6 +1,7 @@
 ## HasibuApp
 A sample POS application made with NodeJs, Express and MongoDb
 
+[![Build Status](https://travis-ci.com/j0nimost/HasibuApp.svg?branch=main)](https://travis-ci.com/github/j0nimost/HasibuApp)
 ### To Start
 
 - Create a free Mongodb on [mlab](https://mlab.com/) then use the `sample.config.env` to fill in the Database connection string. 
