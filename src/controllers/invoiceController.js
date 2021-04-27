@@ -10,6 +10,7 @@ exports.updateInvoiceAsync = async(req, res, next) => {
             {$set: {
                 grossAmount: req.body.grossAmount,
                 netAmount: req.body.netAmount,
+                outstandingBalance: req.body.grossAmount,
                 purchaseItems: req.body.purchaseItems
             }});
 
@@ -39,6 +40,7 @@ exports.addAsync = async(req, res, next) => {
             grossAmount: req.body.grossAmount,
             vat: req.body.vat,
             netAmount: req.body.netAmount,
+            outstandingBalance: req.body.grossAmount,
             servedBy: req.body.servedBy,
             purchaseItems: req.body.purchaseItems
         });

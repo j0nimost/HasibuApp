@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const purchaseSchema = require('./purchaseModel');
+const paymentSchema = require('./paymentModel');
 const Float = require('mongoose-float').loadType(mongoose);
 
 const invoiceSchema = new mongoose.Schema({
@@ -29,11 +30,25 @@ const invoiceSchema = new mongoose.Schema({
         type: Float,
         required: [true, 'Total Net Amount is Required']
     },
+
+    paidAmount: {
+        type: Float,
+        default: 0.00
+    },
+
+    outstandingBalance: {
+        type: Float,
+        default: 0.00
+    },
+
     servedBy:{
         type: String,
         required: [true, 'Server Name is Required']
     },
-    purchaseItems : [purchaseSchema]
+    
+    purchaseItems : [purchaseSchema],
+
+    paymentItems : [paymentSchema]
 
 });
 
