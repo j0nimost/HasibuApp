@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const app = require("./app");
 const dotenv = require('dotenv');
+const AccountUtil = require('./src/utils/accountUtil');
 dotenv.config({
     path: './config.env'
 });
@@ -20,4 +21,4 @@ mongoose.connect(database, {useNewUrlParser: true}, () => {
 
 app.listen(port, () => {
     console.log(`HasibuAPP has started in port: ${port}`);
-})
+});
