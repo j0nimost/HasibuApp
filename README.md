@@ -15,6 +15,8 @@ Rename the `sample.config.env` to `config.env` or create a new one.
 - `/api/v1/stores`
 - `/api/v1/catalogues`
 - `/api/v1/invoices`
+- `/api/v1/payment`
+- `/api/v1/account`
 * Access the respective endpoints in the `api-routes` folder
 
 ### Author
