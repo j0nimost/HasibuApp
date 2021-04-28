@@ -1,7 +1,7 @@
 const base = require('./baseController');
 const invoiceModel = require('../models/invoiceModel');
 const appError = require('../utils/appError');
-
+const AccountUtil = require('../utils/accountUtil');
 // update the whole list
 exports.updateInvoiceAsync = async(req, res, next) => {
     try {
@@ -46,6 +46,22 @@ exports.addAsync = async(req, res, next) => {
         });
 
         const invoiceItem = await invoice.save();
+
+        var accountUtil = new AccountUtil();
+
+        let _accountCount = await accountUtil.loadAccountCountAsync("HAC");
+        
+        console.log(_accountCount);
+        let _accountRef = accountUtil.accountRefFormatter(_accountCount+1);
+        //console.log(AccountUtil.HACCount);
+        const accountObj = {
+            accountRef: "HAC" + _accountRef,
+            storeId: req.params.storeId,
+            credit: req.body.grossAmount,
+            description: 'Invoice'
+        }
+
+        await accountUtil.addAccountAsync(accountObj);
 
         res.status(201).json({
             status: 'Success',

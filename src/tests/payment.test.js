@@ -20,15 +20,15 @@ describe('post a new payment', () => {
     it('should create a new payment', async () => {
         const res = await request(app).post('/api/v1/payment')
                                         .send(paymentItem);
-
         expect(res.statusCode).toEqual(204);
     });
 });
 
 
+
 const createStore = async () => {
     const store = await storeModel.create(storeItem);
-    storeId = store.id;
+    storeId = store._id;
 }
 
 const createInvoice = async () => {
@@ -36,14 +36,14 @@ const createInvoice = async () => {
     invoiceNo = invoice.invoiceNo;
 }
 
-
 let storeId;
 let invoiceNo;
 
 const invoiceItem = {
-    businessId: storeId,
+    businessId: "6089c1bb76ada093dcb6d2af",
     grossAmount: 34300.00,
     netAmount: 34754.99,
+    invoiceNo: 1,
     servedBy: "john",
     purchaseItems:[
         {
@@ -66,10 +66,9 @@ const storeItem = {
 
 const paymentItem = {
     paymentRefId: "OA2EXWAK0H",
-    invoiceRef: invoiceNo,
+    invoiceRef: 1,
     amount: 5000.00,
     paymentChannel: "MPESA",
     paidBy: "John Kiriamiti",
     paymentDate: Date.now()
 }
-  
