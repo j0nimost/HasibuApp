@@ -28,4 +28,24 @@ exports.getstoreAccountAsync = async (req, res, next) => {
     }
 }
 
-exports.getAccountAsync = base.getAsync(accountModel);
+exports.getAccountAsync = async (req, res, next) => {
+
+    try
+    {
+        const accountItem = await accountModel.find({accountRef: req.params.accountRef});
+
+        //console.log(accountItem);
+        if(accountItem.length < 1)
+        {
+           return next(new AppError(404, 'Not Found', 'Account Record not Found'));
+        }
+
+        res.status(200).json({
+            status: "Success",
+            data: accountItem
+        });
+
+    } catch (error) {
+        next(error)
+    }
+}

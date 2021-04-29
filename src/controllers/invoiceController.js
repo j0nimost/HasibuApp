@@ -51,7 +51,6 @@ exports.addAsync = async(req, res, next) => {
 
         let _accountCount = await accountUtil.loadAccountCountAsync("HAC");
         
-        console.log(_accountCount);
         let _accountRef = accountUtil.accountRefFormatter(_accountCount+1);
         //console.log(AccountUtil.HACCount);
         const accountObj = {
