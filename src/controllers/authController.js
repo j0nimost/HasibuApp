@@ -7,6 +7,7 @@ exports.signUpAsync = async(req, res, next) => {
     try
     {
         const hashedpass = bcrypt.hashSync(req.body.password, 8);
+        console.log(hashedpass);
         // hash the password
         const user = new userModel({
                 firstName: req.body.firstName,
@@ -36,9 +37,7 @@ exports.signUpAsync = async(req, res, next) => {
 
 
 exports.signInAsync = async(req, res, next) => {
-    // const hashedPass = bcrypt.hashSync(req.body.password, 12);
-
-    const getUser = user.findOne({email: req.body.email});
+    const getUser = await userModel.findOne({email: req.body.email});
 
     if(!getUser)
     {
@@ -63,7 +62,7 @@ exports.signInAsync = async(req, res, next) => {
 
             res.status(200).json({
                 isAuthenticated: true,
-                token: token,
+                token: accessToken,
                 expiresIn: '24h'});
         }
     }

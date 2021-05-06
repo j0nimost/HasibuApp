@@ -4,6 +4,7 @@ const globalError = require("./src/controllers/errorController");
 const AppError = require("./src/utils/appError");
 
 // Routes
+const authRoute = require('./src/api-routes/authRoute');
 const storeRoute  = require('./src/api-routes/storeRoute');
 const catalogueRoute = require('./src/api-routes/catalogueRoute');
 const invoiceRoute = require('./src/api-routes/invoiceRoute');
@@ -24,6 +25,7 @@ app.use('/api/v1/catalogues', catalogueRoute);
 app.use('/api/v1/invoices', invoiceRoute);
 app.use('/api/v1/payment', paymentRoute);
 app.use('/api/v1/account', accountRoute);
+app.use('/api/v1/auth', authRoute);
 
 app.use('*', (req, res, next) => {
     const err = new AppError(404, 'Failed', 'Endpoint Not Found');
