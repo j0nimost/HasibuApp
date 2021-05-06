@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 const dataHandler = require('./datahandler');
+const authSignUp = require('./authhandler');
 const storeModel = require('../models/storesModel');
 const invoiceModel = require('../models/invoiceModel');
 const payment = require('../models/paymentModel');
@@ -18,7 +19,9 @@ afterAll(async () => await dataHandler.closeConnections());
 
 describe('post a new payment', () => {
     it('should create a new payment', async () => {
+        const authToken = await authSignUp();
         const res = await request(app).post('/api/v1/payment')
+                                        .set('Authorization', 'Bearer ' + authToken)
                                         .send(paymentItem);
         expect(res.statusCode).toEqual(204);
     });

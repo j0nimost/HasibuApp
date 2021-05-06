@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require('../../app');
 const dataHandler = require('./datahandler');
+const authSignUp = require('./authhandler');
 const storeModel = require('../models/storesModel');
 const catalogueModel = require('../models/catalogueModel');
 
@@ -17,7 +18,9 @@ afterAll(async () => await dataHandler.closeConnections());
 
 describe('post a new catalogue', () => {
   it('Should create a new catalogue', async () => {
+    const authToken = await authSignUp();
     const res = await request(app).post(`/api/v1/catalogues/store/${storeId}`)
+                                  .set('Authorization', 'Bearer ' + authToken)
                                   .send(catalogueItem);
 
     expect(res.statusCode).toEqual(201);
@@ -27,8 +30,10 @@ describe('post a new catalogue', () => {
 
 describe('get a specific catalogue', () => {
   it('Should get a specific catalogue', async() => {
+	const authToken = await authSignUp();
     const res = await request(app)
-                                .get(`/api/v1/catalogues/${storeId}/catalogue/${catalogueId}`);
+                                .get(`/api/v1/catalogues/${storeId}/catalogue/${catalogueId}`)
+								.set('Authorization', 'Bearer '+ authToken)
     
     expect(res.statusCode).toEqual(200);
     expect(res.body.status).toEqual("Success");
@@ -37,8 +42,10 @@ describe('get a specific catalogue', () => {
 
 describe('get all the stores catalogues', () => {
   it('Should get all the stores Catalogues', async () => {
+	const authToken = await authSignUp();
     const res = await request(app)
-                                .get(`/api/v1/catalogues/store/${storeId}`);
+                                .get(`/api/v1/catalogues/store/${storeId}`)
+								.set('Authorization', 'Bearer '+ authToken);
 
     expect(res.statusCode).toEqual(200);
     expect(res.body.status).toEqual("Success");
@@ -56,8 +63,10 @@ describe('update a catalogue', () => {
 
 
   it('Should update a catalogue', async () => {
+	const authToken = await authSignUp();
     const res = await request(app)
                                     .patch(`/api/v1/catalogues/${storeId}/catalogue/${catalogueId}`)
+									.set('Authorization', 'Bearer ' + authToken)
                                     .send(catalogueUpdate);
 
     expect(res.statusCode).toEqual(200);
@@ -68,9 +77,10 @@ describe('update a catalogue', () => {
 
 describe('delete a catalogue item', () => {
   it('Should delete a catalogue', async () => {
-
+	const authToken = await authSignUp();
     const res  = await request(app)
-                                  .delete(`/api/v1/catalogues/${storeId}/catalogue/${catalogueId}`);
+                                  .delete(`/api/v1/catalogues/${storeId}/catalogue/${catalogueId}`)
+								  .set('Authorization', 'Bearer ' + authToken);
 
 
     expect(res.statusCode).toEqual(204);

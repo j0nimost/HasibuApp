@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 const dataHandler = require('./datahandler');
+const authSignUp = require('./authhandler');
 const accountModel = require('../models/accountsModel');
 
 beforeAll(async() => await dataHandler.openConnections());
@@ -17,14 +18,20 @@ afterAll(async () => await dataHandler.closeConnections());
 
 describe('get store accounts', () =>  {
     it('Should get accounts related to a store', async () => {
-        const res = await request(app).get(`/api/v1/account/store/${accountItem.storeId}`);
+        const authToken = await authSignUp();
+        const res = await request(app)
+                                .get(`/api/v1/account/store/${accountItem.storeId}`)
+                                .set('Authorization', 'Bearer ' + authToken);
         expect(res.statusCode).toEqual(200);
     });
 });
 
 describe('get a specific account record', () => {
   it('Should get a specific record account', async () => {
-      const res = await request(app).get(`/api/v1/account/${accountItem.accountRef}`);
+      const authToken = await authSignUp();
+      const res = await request(app)
+                              .get(`/api/v1/account/${accountItem.accountRef}`)
+                              .set('Authorization', 'Bearer '+ authToken);
       expect(res.statusCode).toEqual(200);
   })
 })

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
+const authValidator = require('../middleware/authmiddleware');
 
+router.use(authValidator);
 
 router.route('/')
         .get(storeController.getAllStores)
