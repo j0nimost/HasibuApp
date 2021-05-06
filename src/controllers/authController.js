@@ -7,7 +7,6 @@ exports.signUpAsync = async(req, res, next) => {
     try
     {
         const hashedpass = bcrypt.hashSync(req.body.password, 8);
-        console.log(hashedpass);
         // hash the password
         const user = new userModel({
                 firstName: req.body.firstName,
