@@ -1,6 +1,9 @@
 const express = require('express');
 const catalogueController = require('../controllers/catalogueController');
 const router = express.Router();
+const authValidator = require('../middleware/authmiddleware');
+
+router.use(authValidator);
 
 router.route('/store/:storeId')
         .get(catalogueController.getAllCatalogues)

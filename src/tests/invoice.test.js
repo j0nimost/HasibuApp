@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require('../../app');
 const dataHandler = require('./datahandler');
+const authSignUp = require('./authhandler');
 const storeModel = require('../models/storesModel');
 const invoiceModel = require('../models/invoiceModel');
 
@@ -19,7 +20,9 @@ afterAll(async () => await dataHandler.closeConnections());
 
 describe('post a new store invoice', () => {
   it('should create a new invoice', async () => {
+    const authToken = await authSignUp();
     const res = await request(app).post(`/api/v1/invoices/${storeId}`)
+                                  .set('Authorization', 'Bearer ' + authToken)
                                   .send(invoiceTestModel);
     // console.log(res);
     expect(res.statusCode).toEqual(201);
@@ -28,8 +31,10 @@ describe('post a new store invoice', () => {
 
 describe('get store invoices', () => {
   it('Should get all invoices', async () => {
+    const authToken = await authSignUp();
     const res = await request(app)
-                  .get(`/api/v1/invoices/${storeId}`);
+                  .get(`/api/v1/invoices/${storeId}`)
+                  .set('Authorization', 'Bearer ' + authToken);
 
     expect(res.statusCode).toEqual(200);
     expect(res.body.status).toEqual("Success");
@@ -38,7 +43,10 @@ describe('get store invoices', () => {
 
 describe('get specific invoice', () => {
   it('Should get a single invoice', async () => {
-    const res = await request(app).get(`/api/v1/invoices/invoice/${invoiceId}`);
+    const authToken = await authSignUp();
+    const res = await request(app)
+                          	.get(`/api/v1/invoices/invoice/${invoiceId}`)
+							.set('Authorization', 'Bearer '+ authToken);
 
     expect(res.statusCode).toEqual(200);
     expect(res.body.status).toEqual("Success");

@@ -1,9 +1,12 @@
 const request = require("supertest");
 const app = require('../../app');
 const dataHandler = require('./datahandler');
+const authSignUp = require('./authhandler');
 const storeModel = require('../models/storesModel');
-
-beforeAll(async () => await dataHandler.openConnections());
+beforeAll(async () => {
+	await dataHandler.openConnections();
+	
+});
 
 beforeEach(async () => {
 	await createStore();
@@ -16,8 +19,10 @@ afterAll(async () => await dataHandler.closeConnections());
 
 describe('post a new store', () => {
   it('Should create a new store', async () => {
+	const authToken = await authSignUp();
     const res = await request(app)
 								.post('/api/v1/stores')
+								.set('Authorization', 'Bearer ' + authToken)
 								.send(storeItem);
 	expect(res.statusCode).toEqual(201);
 	expect(res.body.status).toEqual("Success");
@@ -26,8 +31,10 @@ describe('post a new store', () => {
 
 describe('get all the stores', () => {
 	it('Should get all the stores', async () => {
+		const authToken = await authSignUp();
 		const res = await request(app)
-									.get('/api/v1/stores');
+									.get('/api/v1/stores')
+									.set('Authorization', 'Bearer ' + authToken);
 
 		expect(res.statusCode).toEqual(200);
 		expect(res.body.status).toEqual("Success");
@@ -36,8 +43,10 @@ describe('get all the stores', () => {
 
 describe('get a specific store', () => {
 	it('Should get a specific store', async () => {
+		const authToken = await authSignUp();
 		const res = await request(app)
-									.get(`/api/v1/stores/${storeId}`);
+									.get(`/api/v1/stores/${storeId}`)
+									.set('Authorization', 'Bearer ' + authToken);
 
 	expect(res.statusCode).toEqual(200);
 	expect(res.body.status).toEqual("Success");
@@ -57,8 +66,10 @@ describe('update a specific store', () => {
 	  }
 
 	it('Should update a specific store', async () => {
+		const authToken = await authSignUp();
 		const res = await request(app)
 									.patch(`/api/v1/stores/${storeId}`)
+									.set('Authorization', 'Bearer '+ authToken)
 									.send(storeUpdate);
 		expect(res.statusCode).toEqual(200);
 		expect(res.body.status).toEqual("Success");
@@ -67,8 +78,10 @@ describe('update a specific store', () => {
 
 describe('delete a store', () => {
 	it('Should delete a Store', async () => {
+		const authToken = await authSignUp();
 		const res = await request(app)
-								.delete(`/api/v1/stores/${storeId}`);
+								.delete(`/api/v1/stores/${storeId}`)
+								.set('Authorization', 'Bearer ' + authToken);
 		expect(res.statusCode).toEqual(204);
 	});
 });
@@ -89,3 +102,4 @@ const storeItem ={
   ownerEmail:"lolEmail@gmail.com",
   ownerMobile:"023232232"
 }
+
