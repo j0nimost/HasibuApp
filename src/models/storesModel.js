@@ -53,4 +53,4 @@ const storeSchema = new mongoose.Schema({
     catalogues: [catalogueSchema]
 });
 
-module.exports = mongoose.model('stores', storeSchema);
+module.exports = storeSchema;

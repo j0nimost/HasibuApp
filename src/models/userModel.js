@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const storeModels = require('storesModels');
 require('mongoose-type-email');
 
 const userSchema = new mongoose.Schema({
@@ -23,6 +24,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+
+    stores :[storeModels],
 
     dateCreated: {
         type: Date,
