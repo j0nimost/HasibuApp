@@ -4,6 +4,11 @@ const catalogueSchema = require("./catalogueModel");
 
 const storeSchema = new mongoose.Schema({
 
+    userId: {
+        type: String,
+        required: [true, "Please provide UserId"]
+    },
+
     businessName: {
         type: String,
         required: [true, "Please provide your Business Name"],
