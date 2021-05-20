@@ -36,7 +36,6 @@ describe('get all the stores', () => {
 									.get(`/api/v1/stores/user/${storeItem.userId}`)
 									.set('Authorization', 'Bearer ' + authToken);
 
-		console.log(authToken.userId);
 		expect(res.statusCode).toEqual(200);
 		expect(res.body.status).toEqual("Success");
 	});
