@@ -6,9 +6,10 @@ const authValidator = require('../middleware/authmiddleware');
 router.use(authValidator);
 
 router.route('/')
-        .get(storeController.getAllStores)
         .post(storeController.addStore);
 
+router.route('/:userId')
+        .get(storeController.getAllStores);
 
 router.route('/:id')
         .get(storeController.getStore)
