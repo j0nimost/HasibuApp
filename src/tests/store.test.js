@@ -33,9 +33,10 @@ describe('get all the stores', () => {
 	it('Should get all the stores', async () => {
 		const authToken = await authSignUp();
 		const res = await request(app)
-									.get('/api/v1/stores')
+									.get(`/api/v1/stores/user/${storeItem.userId}`)
 									.set('Authorization', 'Bearer ' + authToken);
 
+		console.log(authToken.userId);
 		expect(res.statusCode).toEqual(200);
 		expect(res.body.status).toEqual("Success");
 	});
@@ -95,6 +96,7 @@ const createStore = async () => {
 let storeId; 
 
 const storeItem ={
+  userId: "6093acb3cee35aaa60d44f23",
   businessName:"Kate & Paul",
   location: "Makongeni",
   town: "Thika",

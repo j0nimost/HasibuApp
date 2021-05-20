@@ -106,6 +106,7 @@ const catalogueItem ={
 }
 
 const storeItem = {
+  userId: "6093acb3cee35aaa60d44f23",
   businessName:"Kate & Paul",
   location: "Makongeni",
   town: "Thika",

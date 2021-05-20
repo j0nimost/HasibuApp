@@ -8,6 +8,7 @@ module.exports = async function() {
                                 .post('/api/v1/auth/signup')
                                 .send(signupItem)
                                 .expect(200);
+
     return res.body.token;
 };
 
