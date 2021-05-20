@@ -8,7 +8,7 @@ router.use(authValidator);
 router.route('/')
         .post(storeController.addStore);
 
-router.route('/:userId')
+router.route('/user/:userId')
         .get(storeController.getAllStores);
 
 router.route('/:id')
