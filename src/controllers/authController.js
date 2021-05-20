@@ -22,6 +22,7 @@ exports.signUpAsync = async(req, res, next) => {
         });
 
         res.status(200).json({
+            userId: addUser._id,
             isAuthenticated: true,
             token: token,
             expiresIn: '24h'
@@ -60,6 +61,7 @@ exports.signInAsync = async(req, res, next) => {
             });
 
             res.status(200).json({
+                userId: getUser._id,
                 isAuthenticated: true,
                 token: accessToken,
                 expiresIn: '24h'});
